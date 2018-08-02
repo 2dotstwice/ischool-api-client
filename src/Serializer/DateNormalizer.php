@@ -7,7 +7,7 @@ use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use TwoDotsTwice\ISchoolApiClient\Model\Date;
 
-class DateNormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
+class DateNormalizer implements DenormalizerInterface
 {
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -27,10 +27,5 @@ class DateNormalizer implements DenormalizerInterface, CacheableSupportsMethodIn
             (int)$date->format('m'),
             (int)$date->format('d')
         );
-    }
-
-    public function hasCacheableSupportsMethod(): bool
-    {
-        return __CLASS__ === \get_class($this);
     }
 }
