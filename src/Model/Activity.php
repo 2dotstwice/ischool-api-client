@@ -194,9 +194,9 @@ class Activity
     /**
      * @return int
      */
-    public function getMaxReservations(): ?int
+    public function getMaxReservations(): int
     {
-        return $this->maxReservations;
+        return (int) $this->maxReservations;
     }
 
     /**
