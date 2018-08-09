@@ -62,6 +62,11 @@ class Activity
     private $location;
 
     /**
+     * @var string
+     */
+    private $reservationLink;
+
+    /**
      * @return integer
      */
     public function getId(): int
@@ -238,4 +243,22 @@ class Activity
     {
         $this->location = $location;
     }
+
+  /**
+   * @return string
+   */
+  public function getReservationLink(): string
+  {
+      return $this->reservationLink;
+  }
+
+  /**
+   * @param string $reservationLink
+   */
+  public function setReservationLink(string $reservationLink): void
+  {
+      $this->reservationLink = $reservationLink;
+  }
+
+
 }
