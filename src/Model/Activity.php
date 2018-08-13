@@ -229,17 +229,17 @@ class Activity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLocation(): string
+    public function getLocation(): ?string
     {
         return $this->location;
     }
 
     /**
-     * @param string $location
+     * @param string|null $location
      */
-    public function setLocation(string $location): void
+    public function setLocation(string $location = null): void
     {
         $this->location = $location;
     }
