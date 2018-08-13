@@ -117,9 +117,14 @@ class HttplugApiClient implements ApiClient
 
     private function fixInconsistencies($body)
     {
+        $replacements = [
+          '"item_current_reservations":"0"' => '"item_current_reservations":0',
+          '"item_price":null' => '"item_price":0'
+        ];
+
         $body = str_replace(
-            '"item_current_reservations":"0"',
-            '"item_current_reservations":0',
+            array_keys($replacements),
+            array_values($replacements),
             $body
         );
 
