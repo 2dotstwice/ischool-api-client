@@ -9,6 +9,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $client = $_SERVER['argv'][1];
 $salt = $_SERVER['argv'][2];
+$id = $_SERVER['argv'][3] ?? NULL;
 
 $checksumCalculator = new CheckSumCalculator($salt);
 
@@ -22,3 +23,13 @@ $apiClient = new HttplugApiClient(
 $activities = $apiClient->getActivities();
 
 print count($activities) . PHP_EOL;
+
+foreach ($activities as $activity) {
+    if ($id) {
+        var_dump($activity);
+        break;
+    }
+    else {
+        print $activity->getId() . ': ' . $activity->getDescription() . PHP_EOL;
+    }
+}
