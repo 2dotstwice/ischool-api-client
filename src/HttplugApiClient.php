@@ -175,6 +175,8 @@ class HttplugApiClient implements ApiClient
     {
         $replacements = [
             '"item_current_reservations":"0"' => '"item_current_reservations":0',
+            '"item_current_reservations":null' => '"item_current_reservations":0',
+            '"item_max_reservations":null' => '"item_max_reservations":0',
             '"item_price":null' => '"item_price":0',
             '"item_price":"0.00"' => '"item_price":0',
         ];
