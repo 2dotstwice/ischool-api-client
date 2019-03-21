@@ -95,6 +95,9 @@ class HttplugApiClient implements ApiClient
         return http_build_query($query_data);
     }
 
+    /**
+     * @return Activity[]
+     */
     public function getActivities(): array
     {
         $url =
