@@ -25,11 +25,9 @@ $activities = $apiClient->getActivities();
 print count($activities) . PHP_EOL;
 
 foreach ($activities as $activity) {
-    if ($id) {
-        var_dump($activity);
-        break;
-    }
-    else {
+    if (!$id || (string)$activity->getId() == $id) {
         print $activity->getId() . ': ' . $activity->getDescription() . PHP_EOL;
+        print 'max reservations: ' . $activity->getMaxReservations() . PHP_EOL;
+        print 'current reservations: ' . $activity->getCurrentReservations() . PHP_EOL;
     }
 }
