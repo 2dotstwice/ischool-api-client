@@ -11,6 +11,7 @@ use function str_replace;
 use Symfony\Component\Serializer\Serializer;
 use TwoDotsTwice\ISchoolApiClient\Model\Activity;
 use TwoDotsTwice\ISchoolApiClient\Http\ErrorResponseException;
+use TwoDotsTwice\ISchoolApiClient\Model\GetActivitiesParameters;
 use TwoDotsTwice\ISchoolApiClient\Model\Info;
 use TwoDotsTwice\ISchoolApiClient\Serializer\SerializerFactory;
 
@@ -65,7 +66,7 @@ class HttplugApiClient implements ApiClient
         $this->serializer = (new SerializerFactory())->createSerializer();
     }
 
-    private function getQueryData(string $type): array
+    private function getQueryData(string $type, array $additionalParameters = []): array
     {
         $query_data = [
             'ppartnerid' => self::PARTNER_PLUGIN,
@@ -78,6 +79,8 @@ class HttplugApiClient implements ApiClient
             ),
         ];
 
+        $query_data += $additionalParameters;
+
         return $query_data;
     }
 
@@ -88,9 +91,10 @@ class HttplugApiClient implements ApiClient
         return http_build_query($query_data);
     }
 
-    private function getActivitiesQuery(): string
+    private function getActivitiesQuery(GetActivitiesParameters $parameters = null): string
     {
-        $query_data = $this->getQueryData(self::TYPE_ACTIVITIES_JSON);
+        $parametersArray = $parameters->toArray();
+        $query_data = $this->getQueryData(self::TYPE_ACTIVITIES_JSON, $parametersArray);
 
         return http_build_query($query_data);
     }
@@ -98,12 +102,14 @@ class HttplugApiClient implements ApiClient
     /**
      * @return Activity[]
      */
-    public function getActivities(): array
+    public function getActivities(GetActivitiesParameters $parameters): array
     {
         $url =
             $this->baseUrl
             . 'lid/ischool/ischool.plugin?'
-            . $this->getActivitiesQuery();
+            . $this->getActivitiesQuery(
+                $parameters
+            );
 
         $request = $this->requestFactory->createRequest('GET', $url);
 

@@ -4,6 +4,7 @@
 use Http\Message\MessageFactory\GuzzleMessageFactory;
 use TwoDotsTwice\ISchoolApiClient\CheckSumCalculator;
 use TwoDotsTwice\ISchoolApiClient\HttplugApiClient;
+use TwoDotsTwice\ISchoolApiClient\Model\GetActivitiesParameters;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -20,7 +21,14 @@ $apiClient = new HttplugApiClient(
     $client
 );
 
-$activities = $apiClient->getActivities();
+$today = new \DateTimeImmutable();
+// End date 3 years from now.
+$endDate = $today->add(new \DateInterval('P3Y'));
+
+$parameters = new GetActivitiesParameters();
+$parameters = $parameters->withEndDate($endDate);
+
+$activities = $apiClient->getActivities($parameters);
 
 print count($activities) . PHP_EOL;
 
