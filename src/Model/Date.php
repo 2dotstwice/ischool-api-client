@@ -37,4 +37,19 @@ class Date
 
         return $dateTime;
     }
+
+    public function getYear(): int
+    {
+        return $this->year;
+    }
+
+    public function getMonth(): int
+    {
+        return $this->month;
+    }
+
+    public function getDay(): int
+    {
+        return $this->day;
+    }
 }
